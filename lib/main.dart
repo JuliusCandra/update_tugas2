@@ -9,7 +9,7 @@ void main() {
   ));
 }
 
-class BelajarForm extends StatefulWidget {
+class FormProduk extends StatefulWidget {
   @override
   _FormProdukState createState() => _FormProdukState();
 }
