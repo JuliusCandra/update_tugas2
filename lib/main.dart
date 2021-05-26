@@ -5,16 +5,16 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     title: "Flutter",
-    home: BelajarForm(),
+    home: FormProduk(),
   ));
 }
 
 class BelajarForm extends StatefulWidget {
   @override
-  _BelajarFormState createState() => _BelajarFormState();
+  _FormProdukState createState() => _FormProdukState();
 }
 
-class _BelajarFormState extends State<BelajarForm> {
+class _FormProdukState extends State<FormProduk> {
   String _mau = "";
 
   String _title = "Untuk keperluan sendiri";
