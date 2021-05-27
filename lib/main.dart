@@ -77,7 +77,7 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
                 child: Container(
                   child: Column(
                     children: [
-                      TextField(
+                      TextFormField(
                         controller: controllerNama,
                         decoration: InputDecoration(labelText: "Nama lengkap"),
                         validator: (String value) {
@@ -87,7 +87,7 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
                           return null;
                         },
                       ),
-                      TextField(
+                      TextFormField(
                         controller: controllerPekerjaan,
                         decoration: InputDecoration(labelText: "Pekerjaan Anda Dahulu"),
                         validator: (String value) {
@@ -97,7 +97,7 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
                           return null;
                         },
                       ),
-                      TextField(
+                      TextFormField(
                         controller: controllerPengalaman,
                         decoration: InputDecoration(labelText: "Pengalaman Anda"),
                         validator: (String value) {
