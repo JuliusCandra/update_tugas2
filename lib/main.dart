@@ -213,7 +213,7 @@ class _PengalamanState extends State<Pengalaman> {
                         child: InkWell(
                             splashColor: Colors.white,
                             onTap: () {
-                              final valid = _formKey.currentState!.validate();
+                              final valid = _formKey.currentState.validate();
                               if (!valid) {
                                 return;
                               }
