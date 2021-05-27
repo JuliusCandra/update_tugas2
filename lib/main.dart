@@ -17,9 +17,15 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
   final _formKey = GlobalKey<FormState>();
   bool nilaiCheckBox = false;
 
-  TextEditingController controllerNamaProduk = new TextEditingController();
-  TextEditingController controllerHargaProduk = new TextEditingController();
-  TextEditingController controllerKategoryBarang = new TextEditingController();
+  void _pilihJk(value) {
+    setState(() {
+      _jk = value;
+    });
+  }
+
+  TextEditingController controllerNama = new TextEditingController();
+  TextEditingController controllerPekerjaan = new TextEditingController();
+  TextEditingController controllerPengalaman = new TextEditingController();
 
   void _submitData() {
     final isValid = _formKey.currentState.validate();
@@ -70,6 +76,7 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
                   child: Column(
                     children: [
                       TextField(
+                        controller: controllerNama,
                         decoration: InputDecoration(labelText: "Nama lengkap"),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -79,6 +86,7 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
                         },
                       ),
                       TextField(
+                        controller: controllerPekerjaan,
                         decoration: InputDecoration(labelText: "Pekerjaan Anda Dahulu"),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -88,6 +96,7 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
                         },
                       ),
                       TextField(
+                        controller: controllerPengalaman,
                         decoration: InputDecoration(labelText: "Pengalaman Anda"),
                         validator: (value) {
                           if (value.isEmpty) {
