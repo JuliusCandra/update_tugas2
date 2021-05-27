@@ -144,7 +144,7 @@ class _FormPendaftaranState extends State<FormPendaftaran> {
                       activeColor: Colors.deepPurpleAccent,
                       onChanged: (value) {
                         setState(() {
-                          nilaiCheckBox = value!;
+                          nilaiCheckBox = value;
                         });
                       },
                     ),
