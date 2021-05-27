@@ -17,6 +17,8 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
   final _formKey = GlobalKey<FormState>();
   bool nilaiCheckBox = false;
 
+  String _jk = "";
+
   void _pilihJk(value) {
     setState(() {
       _jk = value;
