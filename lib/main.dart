@@ -1,194 +1,237 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: "Tugas 2",
-    home: FormPendaftaran(),
+    title: "Formulir Kelahiran",
+    home: Pengalaman(),
   ));
 }
 
-class FormPendaftaran extends StatefulWidget {
+class Pengalaman extends StatefulWidget {
   @override
-  _FormPendaftaranState createState() => _FormPendaftaranState();
+  _PengalamanState createState() => _PengalamanState();
 }
 
-class _FormPendaftaranState extends State<FormPendaftaran> {
-  String _jk = "";
+class _PengalamanState extends State<Pengalaman> {
+  String groupValue = "";
 
-  String _title = "Belajar Dasar Flutter";
-  String _subTitle = "Dart, widget, http";
+  final _formKey = GlobalKey<FormState>();
 
-  void _pilihJk(value) {
+  TextEditingController controllerEmail = new TextEditingController();
+  TextEditingController controllerAlamat = new TextEditingController();
+  TextEditingController controllerPengalaman = new TextEditingController();
+
+  bool nilaiBox = false;
+
+  String zodiak = "Capricon";
+
+  void pilihGender(value) {
     setState(() {
-      _jk = value;
+      groupValue = value;
     });
   }
 
-  final _formKey = GlobalKey<FormState>();
-  bool nilaiCheckBox = false;
-
-  TextEditingController controllerNama = new TextEditingController();
-  TextEditingController controllerPassword = new TextEditingController();
-  TextEditingController controllerPhone = new TextEditingController();
-
-  void _submitData() {
-    final isValid = _formKey.currentState.validate();
-    if (!isValid) {
-      return;
-    }
-
+  void simpanData() {
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-              title: Text("Konfirmasi"),
-              content: new Container(
-                height: 200,
-                child: new Column(
-                  children: [
-                    new Text("Nama Lengkap: " + controllerNama.text),
-                    new Text("Password: " + controllerPassword.text),
-                    new Text("Nomor Telepon: " + controllerPhone.text),
-                    new Text("Jenis Kelamin: " + _jk),
-                    new Text("Title: " + _title + "\n" + "SubTitle: " + _subTitle),
-                  ],
-                ),
+            title: Text("Pesan"),
+            content: new Container(
+              height: 200,
+              child: new Column(
+                children: [
+                  new Text("Email : " + controllerEmail.text),
+                  new Text("Alamat: " + controllerAlamat.text),
+                  new Text("Pengalaman: " + controllerPengalaman.text),
+                  new Text("Keahlian: " + groupValue),
+                ],
               ),
-              actions: [
-                FlatButton(
-                    color: Colors.red,
-                    child: Text("OK"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    })
-              ]);
+            ),
+            actions: [
+              RaisedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("Ok"),
+                color: Colors.red,
+              ),
+            ],
+          );
         });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: Icon(Icons.home), title: Text("Candra Julius Sinaga"), centerTitle: true),
+      appBar: AppBar(
+        title: Text("Candra Julius Sinaga"),
+        leading: Icon(Icons.home),
+        backgroundColor: Colors.red,
+      ),
       body: ListView(
         children: [
           Form(
             key: _formKey,
             child: SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.all(20.0),
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.all(8),
+                color: Colors.white,
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        controller: controllerNama,
-                        maxLength: 10,
-                        decoration: new InputDecoration(
-                          hintText: "contoh: Candra Julius Sinaga",
-                          labelText: "Nama Lengkap",
-                          icon: Icon(Icons.people),
-                          border: OutlineInputBorder(borderRadius: new BorderRadius.circular(5.0)),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Nama tidak boleh kosong';
-                          }
-                          return null;
-                        },
+                    Text(
+                      "Selamat datang. Di Formulir Pekerjaaan",
+                      style: new TextStyle(
+                        fontSize: 20,
+                        color: Colors.black87,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        maxLength: 8,
-                        controller: controllerPassword,
-                        obscureText: true,
-                        decoration: new InputDecoration(
-                          labelText: "Password",
-                          icon: Icon(Icons.security),
-                          border: OutlineInputBorder(borderRadius: new BorderRadius.circular(5.0)),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Password tidak boleh kosong';
-                          }
-                          return null;
-                        },
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Email Harus Diisi";
+                        } else if (!value.contains("@")) {
+                          return 'email tidak valid';
+                        }
+                        return null;
+                      },
+                      controller: controllerEmail,
+                      keyboardType: TextInputType.number,
+                      decoration: new InputDecoration(
+                        border: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black87)),
+                        labelText: "Email Anda",
+                        hintStyle: TextStyle(color: Colors.black87),
+                        labelStyle: TextStyle(color: Colors.black87),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        controller: controllerPhone,
-                        maxLength: 12,
-                        keyboardType: TextInputType.phone,
-                        decoration: new InputDecoration(
-                          hintText: "contoh: 12345679010",
-                          labelText: "Nomor Telepon",
-                          icon: Icon(Icons.phone),
-                          border: OutlineInputBorder(borderRadius: new BorderRadius.circular(5.0)),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Nama telepon tidak boleh kosong';
-                          }
-                          return null;
-                        },
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.text,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Alamat  harus diisi ";
+                        }
+                        return null;
+                      },
+                      controller: controllerAlamat,
+                      decoration: new InputDecoration(
+                        border: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black87)),
+                        labelText: "Alamat  Anda",
+                        hintStyle: TextStyle(color: Colors.black87),
+                        labelStyle: TextStyle(color: Colors.black87),
                       ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return "Pengalaman harus diisi";
+                        }
+                        return null;
+                      },
+                      controller: controllerPengalaman,
+                      keyboardType: TextInputType.text,
+                      decoration: new InputDecoration(
+                        border: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black87)),
+                        labelText: "Pengalaman  Anda",
+                        hintStyle: TextStyle(color: Colors.black87),
+                        labelStyle: TextStyle(color: Colors.black87),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
                     ),
                     CheckboxListTile(
-                      title: Text(_title),
-                      subtitle: Text(_subTitle),
-                      value: nilaiCheckBox,
-                      activeColor: Colors.deepPurpleAccent,
+                      value: nilaiBox,
                       onChanged: (value) {
                         setState(() {
-                          nilaiCheckBox = value;
+                          nilaiBox = value;
                         });
                       },
+                      activeColor: Colors.blueAccent,
+                      title: Text("Pekerja Keras"),
+                      subtitle: Text("Ceklis ini jika anda pekerja keras"),
                     ),
-                    new Padding(
-                      padding: new EdgeInsets.only(top: 20),
+                    SizedBox(
+                      height: 20,
                     ),
-                    new RadioListTile(
-                      value: "Laki-Laki",
-                      title: new Text("laki-laki"),
-                      groupValue: _jk,
-                      onChanged: (value) {
-                        _pilihJk(value);
-                      },
-                      activeColor: Colors.blue,
-                      subtitle: new Text("pilih ini jika anda laki-laki"),
+                    Text(
+                      "Pilih Tingkat Keahlian",
+                      style: new TextStyle(fontSize: 20, color: Colors.black87, fontWeight: FontWeight.bold),
                     ),
-                    new RadioListTile(
-                      value: "Perempuan",
-                      title: new Text("Perempuan"),
-                      groupValue: _jk,
-                      onChanged: (value) {
-                        _pilihJk(value);
-                      },
-                      activeColor: Colors.blue,
-                      subtitle: new Text("Pilih ini jika anda perempuan"),
+                    RadioListTile(
+                        value: "Master",
+                        title: Text(
+                          "Master",
+                          style: new TextStyle(fontSize: 20, color: Colors.black),
+                        ),
+                        groupValue: groupValue,
+                        onChanged: (value) {
+                          pilihGender(value);
+                        }),
+                    RadioListTile(
+                        value: "Menengah",
+                        groupValue: groupValue,
+                        title: Text(
+                          "Menengah",
+                          style: new TextStyle(fontSize: 20, color: Colors.black),
+                        ),
+                        onChanged: (value) {
+                          pilihGender(value);
+                        }),
+                    RadioListTile(
+                        value: "Pemula",
+                        groupValue: groupValue,
+                        title: Text(
+                          "Pemula",
+                          style: new TextStyle(fontSize: 20, color: Colors.black),
+                        ),
+                        onChanged: (value) {
+                          pilihGender(value);
+                        }),
+                    SizedBox(
+                      height: 20,
                     ),
-                    new Padding(
-                      padding: EdgeInsets.only(top: 20),
-                    ),
-                    RaisedButton(
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(color: Colors.white),
+                    Card(
+                      color: Colors.black87,
+                      elevation: 5,
+                      child: Container(
+                        height: 50,
+                        child: InkWell(
+                            splashColor: Colors.white,
+                            onTap: () {
+                              final valid = _formKey.currentState!.validate();
+                              if (!valid) {
+                                return;
+                              }
+                              simpanData();
+                            },
+                            child: Center(
+                              child: Text(
+                                "Simpan",
+                                style: TextStyle(fontSize: 20, color: Colors.white),
+                              ),
+                            )),
                       ),
-                      color: Colors.blue,
-                      onPressed: () {
-                        _submitData();
-                      },
                     ),
                   ],
                 ),
               ),
             ),
-          ),
+          )
         ],
       ),
     );
