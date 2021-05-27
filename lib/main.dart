@@ -20,7 +20,7 @@ class _FormProdukState extends State<FormProduk> {
   String _title = "Untuk keperluan sendiri";
   String _subTitle = "Ceklis ini jika untuk keperluan sendiri";
 
-  void _pilihJk(String value) {
+  void _pilihJk(value) {
     setState(() {
       _mau = value;
     });
@@ -34,7 +34,7 @@ class _FormProdukState extends State<FormProduk> {
   TextEditingController controllerKategoryBarang = new TextEditingController();
 
   void _submitData() {
-    final isValid = _formKey.currentState.validate();
+    final isValid = _formKey.currentState!.validate();
     if (!isValid) {
       return;
     }
@@ -69,7 +69,14 @@ class _FormProdukState extends State<FormProduk> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: Icon(Icons.home), title: Text("Candra Julius Sinaga"), centerTitle: true),
+      appBar: AppBar(
+        leading: Icon(Icons.home),
+        title: Text("Candra Julius Sinaga"),
+        centerTitle: true,
+        actions: [
+          Icon(Icons.home)
+        ],
+      ),
       body: ListView(
         children: [
           Form(
@@ -82,7 +89,7 @@ class _FormProdukState extends State<FormProduk> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.name,
                         controller: controllerNamaProduk,
                         maxLength: 10,
                         decoration: new InputDecoration(
@@ -91,7 +98,7 @@ class _FormProdukState extends State<FormProduk> {
                           border: OutlineInputBorder(borderRadius: new BorderRadius.circular(5.0)),
                         ),
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return 'Nama tidak boleh kosong';
                           } else if (value.length < 2) {
                             return "Nama terlalu pendek";
@@ -103,6 +110,7 @@ class _FormProdukState extends State<FormProduk> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
+                        keyboardType: TextInputType.number,
                         maxLength: 10,
                         controller: controllerHargaProduk,
                         decoration: new InputDecoration(
@@ -111,7 +119,7 @@ class _FormProdukState extends State<FormProduk> {
                           border: OutlineInputBorder(borderRadius: new BorderRadius.circular(5.0)),
                         ),
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return 'Harga tidak boleh kosong';
                           } else if (value.length < 3) {
                             return "Harga terlalu pendek";
@@ -125,14 +133,14 @@ class _FormProdukState extends State<FormProduk> {
                       child: TextFormField(
                         controller: controllerKategoryBarang,
                         maxLength: 12,
-                        keyboardType: TextInputType.phone,
+                        keyboardType: TextInputType.name,
                         decoration: new InputDecoration(
                           hintText: "contoh: Elektronik",
                           labelText: "Nama Kategory",
                           border: OutlineInputBorder(borderRadius: new BorderRadius.circular(5.0)),
                         ),
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return 'Kategory tidak boleh kosong';
                           } else if (value.length < 3) {
                             return "Kategory terlalu pendek";
@@ -148,7 +156,7 @@ class _FormProdukState extends State<FormProduk> {
                       activeColor: Colors.deepPurpleAccent,
                       onChanged: (value) {
                         setState(() {
-                          nilaiCheckBox = value;
+                          nilaiCheckBox = value!;
                         });
                       },
                     ),
@@ -159,7 +167,7 @@ class _FormProdukState extends State<FormProduk> {
                       value: "Ya",
                       title: new Text("Ya"),
                       groupValue: _mau,
-                      onChanged: (String value) {
+                      onChanged: (value) {
                         _pilihJk(value);
                       },
                       activeColor: Colors.blue,
@@ -169,7 +177,7 @@ class _FormProdukState extends State<FormProduk> {
                       value: "Tidak",
                       title: new Text("Tidak"),
                       groupValue: _mau,
-                      onChanged: (String value) {
+                      onChanged: (value) {
                         _pilihJk(value);
                       },
                       activeColor: Colors.blue,
