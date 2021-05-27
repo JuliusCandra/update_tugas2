@@ -1,245 +1,150 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main(){
-  runApp(
-      MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: "Formulir Kelahiran",
-        home: FormulirKelahiran(),
-      )
-  );
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: FormulirKeahlian(),
+  ));
 }
 
-class FormulirKelahiran extends StatefulWidget {
-
+class FormulirKeahlian extends StatefulWidget {
   @override
-  _FormulirKelahiranState createState() => _FormulirKelahiranState();
+  _FormulirKeahlianState createState() => _FormulirKeahlianState();
 }
 
-class _FormulirKelahiranState extends State<FormulirKelahiran> {
-
-  String groupValue = "";
-
+class _FormulirKeahlianState extends State<FormulirKeahlian> {
   final _formKey = GlobalKey<FormState>();
+  bool nilaiCheckBox = false;
 
-  TextEditingController controllerTanggalLahir = new TextEditingController();
-  TextEditingController controllerBulanLahir = new TextEditingController();
-  TextEditingController controllerTahunlahir = new TextEditingController();
+  TextEditingController controllerNamaProduk = new TextEditingController();
+  TextEditingController controllerHargaProduk = new TextEditingController();
+  TextEditingController controllerKategoryBarang = new TextEditingController();
 
-  bool nilaiBox = false;
+  void _submitData() {
+    final isValid = _formKey.currentState.validate();
+    if (!isValid) {
+      return;
+    }
 
-  String zodiak = "Capricon";
-
-  void pilihGender(value){
-    setState(() {
-      groupValue = value;
-    });
-  }
-
-  void simpanData(){
-    showDialog(context: context, builder: (context){
-      return AlertDialog(
-        title: Text("Pesan"),
-        content: new Container(
-          height: 200,
-          child: new Column(
-            children: [
-              new Text("Tanggal lahir: " + controllerTanggalLahir.text),
-              new Text("Bulan lahir: " + controllerBulanLahir.text),
-              new Text("Tahun Lahir: " + controllerTahunlahir.text),
-              new Text("Zodiak: " + zodiak),
-              new Text("Gender: " + groupValue),
-            ],
-          ),
-        ),
-        actions: [
-          RaisedButton(onPressed: (){
-            Navigator.of(context).pop();
-          },child: Text("Ok"),
-            color: Colors.red,
-          ),
-        ],
-      );
-    });
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: Text("Konfirmasi"),
+              content: new Container(
+                height: 200,
+                child: new Column(
+                  children: [
+                    new Text("Nama: " + controllerNamaProduk.text),
+                    new Text("Pekerjaan Terdahulu: Rp " + controllerHargaProduk.text),
+                    new Text("Pengalaman: " + controllerKategoryBarang.text),
+                    new Text("Pilihan Anda: " + _mau),
+                  ],
+                ),
+              ),
+              actions: [
+                FlatButton(
+                    color: Colors.red,
+                    child: Text("Yes"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    })
+              ]);
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Candra Julius Sinaga"),
-        leading: Icon(Icons.home),
-        backgroundColor: Colors.red,
-      ),
-      body: ListView(
-        children: [
-          Form(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.all(8),
-                color: Colors.lightBlue,
-                child: Column(
-                  children: [
-                    Container(
-                      width: 100,
-                      height: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.black87,
-                        shape: BoxShape.circle,
+        appBar: AppBar(
+          title: Text("Formulir Keahlian"),
+          backgroundColor: Colors.blue,
+          leading: Icon(Icons.person),
+        ),
+        body: ListView(
+          children: [
+            Form(
+                key: _formKey,
+                child: Container(
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(labelText: "Nama lengkap"),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Nama harus diisi";
+                          }
+                          return null;
+                        },
                       ),
-                      child: Center(
-                        child: Icon(Icons.person,size: 50,color: Colors.white,),
+                      TextField(
+                        decoration: InputDecoration(labelText: "Pekerjaan Anda Dahulu"),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Pekerjaan harus diisi";
+                          }
+                          return null;
+                        },
                       ),
-                    ),
-
-                    SizedBox(height: 20,),
-
-                    Text("Selamat datang. Di Formulir Kelahiran",style: new TextStyle(
-                      fontSize: 20,color: Colors.black87,
-                    ),
-                    ),
-
-                    SizedBox(height: 20,),
-
-                    TextFormField(
-                      maxLength: 2,
-                      validator: (value){
-                        if (value.isEmpty) {
-                          return "Tanggal lahir harus diisi";
-                        }
-                        return null;
-                      },
-                      controller: controllerTanggalLahir,
-                      keyboardType: TextInputType.number,
-                      decoration: new InputDecoration(
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black87)
+                      TextField(
+                        decoration: InputDecoration(labelText: "Pengalaman Anda"),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return "Pengalaman Harus Diisi";
+                          }
+                          return null;
+                        },
+                      ),
+                      CheckboxListTile(
+                        title: Text("Pekerja Keras"),
+                        subtitle: Text("Pilih ini jika anda pekerja keras"),
+                        value: nilaiCheckBox,
+                        activeColor: Colors.deepOrange,
+                        onChanged: (value) {
+                          setState(() {
+                            nilaiCheckBox = value;
+                          });
+                        },
+                      ),
+                      new RadioListTile(
+                        value: "Laki-Laki",
+                        title: new Text("laki-laki"),
+                        groupValue: _jk,
+                        onChanged: (value) {
+                          _pilihJk(value);
+                        },
+                        activeColor: Colors.blue,
+                        subtitle: new Text("pilih ini jika anda laki-laki"),
+                      ),
+                      new RadioListTile(
+                        value: "Perempuan",
+                        title: new Text("Perempuan"),
+                        groupValue: _jk,
+                        onChanged: (value) {
+                          _pilihJk(value);
+                        },
+                        activeColor: Colors.blue,
+                        subtitle: new Text("Pilih ini jika anda perempuan"),
+                      ),
+                      RaisedButton(
+                        color: Colors.red,
+                        child: Text(
+                          "Masuk",
+                          style: new TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
-                        prefixIcon: Icon(Icons.person,size: 40,),
-                        hintText: "Masukkan Tanggal kelahiran anda",
-                        labelText: "Tanggal lahir Anda",
-                        hintStyle: TextStyle(color: Colors.black87),
-                        labelStyle: TextStyle(color: Colors.black87),
+                        onPressed: () {
+                          _submitData();
+                        },
                       ),
-                    ),
-
-                    SizedBox(height: 20,),
-
-                    TextFormField(
-                      maxLength: 1,
-                      keyboardType: TextInputType.number,
-                      validator: (value){
-                        if (value.isEmpty){
-                          return "Bulan lahir harus diisi ";
-                        }
-                        return null;
-                      },
-                      controller: controllerBulanLahir,
-                      decoration: new InputDecoration(
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black87)
-                        ),
-                        prefixIcon: Icon(Icons.person,size: 40,),
-                        hintText: "Masukkan bulan kelahiran anda",
-                        labelText: "bulan lahir Anda",
-                        hintStyle: TextStyle(color: Colors.black87),
-                        labelStyle: TextStyle(color: Colors.black87),
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-
-                    TextFormField(
-                      maxLength: 4,
-                      validator: (value){
-                        if (value.isEmpty){
-                          return "Tahun Lahir harus diisi";
-                        }else if (value.length < 4){
-                          return "Karakter terlalu pendek";
-                        }
-                        return null;
-                      },
-                      controller: controllerTahunlahir,
-                      keyboardType: TextInputType.number,
-                      decoration: new InputDecoration(
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black87)
-                        ),
-                        prefixIcon: Icon(Icons.person,size: 40,),
-                        hintText: "Masukkan Tahun  kelahiran anda",
-                        labelText: "Tahun lahir Anda",
-                        hintStyle: TextStyle(color: Colors.black87),
-                        labelStyle: TextStyle(color: Colors.black87),
-                      ),
-                    ),
-
-                    SizedBox(height: 20,),
-
-                    CheckboxListTile(value: nilaiBox, onChanged: (value){
-                        setState(() {
-                          nilaiBox = value;
-                        });
-                      },
-                      activeColor: Colors.blueAccent,
-                      title: Text("Capricon"),
-                      subtitle: Text("Pilih ini jika anda berzodiak capricon"),
-                    ),
-
-                    SizedBox(height: 20,),
-
-                    Text("Pilih Gender",style: new TextStyle(fontSize: 20,color: Colors.black87,fontWeight: FontWeight.bold),),
-
-                    RadioListTile(value: "laki-laki",
-                        title: Text("Laki-Laki",style: new TextStyle(fontSize: 20,color: Colors.white),),
-                        groupValue: groupValue, onChanged: (value){
-                      pilihGender(value);
-                    }),
-
-                    RadioListTile(value: "Perempuan", groupValue: groupValue,
-                        title: Text("Perempuan",style: new TextStyle(fontSize: 20,color: Colors.white),),
-                        onChanged: (value){
-                      pilihGender(value);
-                    }),
-
-                    SizedBox(height: 20,),
-
-                    Card(
-                      color: Colors.black87,
-                      elevation: 5,
-                      child: Container(
-                        height: 50,
-                        child: InkWell(
-                          splashColor: Colors.white,
-                          onTap: (){
-                            final valid = _formKey.currentState.validate();
-                            if (!valid){
-                              return;
-                            }
-                            simpanData();
-                          },
-                          child:Center(
-                          child: Text("Simpan",style: TextStyle(fontSize: 20,color: Colors.white),),
-                        )
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+                    ],
+                  ),
+                ))
+          ],
+        ));
   }
 }
-
-
