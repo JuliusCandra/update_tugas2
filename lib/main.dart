@@ -1,37 +1,36 @@
-// choose file
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: "Flutter",
-    home: FormProduk(),
+    title: "Tugas 2",
+    home: FormPendaftaran(),
   ));
 }
 
-class FormProduk extends StatefulWidget {
+class FormPendaftaran extends StatefulWidget {
   @override
-  _FormProdukState createState() => _FormProdukState();
+  _FormPendaftaranState createState() => _FormPendaftaranState();
 }
 
-class _FormProdukState extends State<FormProduk> {
-  String _mau = "";
+class _FormPendaftaranState extends State<FormPendaftaran> {
+  String _jk = "";
 
-  String _title = "Untuk keperluan sendiri";
-  String _subTitle = "Ceklis ini jika untuk keperluan sendiri";
+  String _title = "Belajar Dasar Flutter";
+  String _subTitle = "Dart, widget, http";
 
   void _pilihJk(value) {
     setState(() {
-      _mau = value;
+      _jk = value;
     });
   }
 
   final _formKey = GlobalKey<FormState>();
   bool nilaiCheckBox = false;
 
-  TextEditingController controllerNamaProduk = new TextEditingController();
-  TextEditingController controllerHargaProduk = new TextEditingController();
-  TextEditingController controllerKategoryBarang = new TextEditingController();
+  TextEditingController controllerNama = new TextEditingController();
+  TextEditingController controllerPassword = new TextEditingController();
+  TextEditingController controllerPhone = new TextEditingController();
 
   void _submitData() {
     final isValid = _formKey.currentState.validate();
@@ -48,17 +47,18 @@ class _FormProdukState extends State<FormProduk> {
                 height: 200,
                 child: new Column(
                   children: [
-                    new Text("Nama barang: " + controllerNamaProduk.text),
-                    new Text("Harga: Rp " + controllerHargaProduk.text),
-                    new Text("Kategory Barang: " + controllerKategoryBarang.text),
-                    new Text("Pilihan Anda: " + _mau),
+                    new Text("Nama Lengkap: " + controllerNama.text),
+                    new Text("Password: " + controllerPassword.text),
+                    new Text("Nomor Telepon: " + controllerPhone.text),
+                    new Text("Jenis Kelamin: " + _jk),
+                    new Text("Title: " + _title + "\n" + "SubTitle: " + _subTitle),
                   ],
                 ),
               ),
               actions: [
                 FlatButton(
                     color: Colors.red,
-                    child: Text("Yes"),
+                    child: Text("OK"),
                     onPressed: () {
                       Navigator.of(context).pop();
                     })
@@ -69,14 +69,7 @@ class _FormProdukState extends State<FormProduk> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Icon(Icons.home),
-        title: Text("Candra Julius Sinaga"),
-        centerTitle: true,
-        actions: [
-          Icon(Icons.home)
-        ],
-      ),
+      appBar: AppBar(leading: Icon(Icons.home), title: Text("Candra Julius Sinaga"), centerTitle: true),
       body: ListView(
         children: [
           Form(
@@ -89,19 +82,17 @@ class _FormProdukState extends State<FormProduk> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        keyboardType: TextInputType.name,
-                        controller: controllerNamaProduk,
+                        controller: controllerNama,
                         maxLength: 10,
                         decoration: new InputDecoration(
-                          hintText: "contoh: Asus",
-                          labelText: "Nama Barang",
+                          hintText: "contoh: Candra Julius Sinaga",
+                          labelText: "Nama Lengkap",
+                          icon: Icon(Icons.people),
                           border: OutlineInputBorder(borderRadius: new BorderRadius.circular(5.0)),
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Nama tidak boleh kosong';
-                          } else if (value.length < 2) {
-                            return "Nama terlalu pendek";
                           }
                           return null;
                         },
@@ -110,19 +101,17 @@ class _FormProdukState extends State<FormProduk> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        maxLength: 10,
-                        controller: controllerHargaProduk,
+                        maxLength: 8,
+                        controller: controllerPassword,
+                        obscureText: true,
                         decoration: new InputDecoration(
-                          labelText: "Harga Barang",
-                          hintText: "Contohnya Rp 200000",
+                          labelText: "Password",
+                          icon: Icon(Icons.security),
                           border: OutlineInputBorder(borderRadius: new BorderRadius.circular(5.0)),
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'Harga tidak boleh kosong';
-                          } else if (value.length < 3) {
-                            return "Harga terlalu pendek";
+                            return 'Password tidak boleh kosong';
                           }
                           return null;
                         },
@@ -131,19 +120,18 @@ class _FormProdukState extends State<FormProduk> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: TextFormField(
-                        controller: controllerKategoryBarang,
+                        controller: controllerPhone,
                         maxLength: 12,
-                        keyboardType: TextInputType.name,
+                        keyboardType: TextInputType.phone,
                         decoration: new InputDecoration(
-                          hintText: "contoh: Elektronik",
-                          labelText: "Nama Kategory",
+                          hintText: "contoh: 12345679010",
+                          labelText: "Nomor Telepon",
+                          icon: Icon(Icons.phone),
                           border: OutlineInputBorder(borderRadius: new BorderRadius.circular(5.0)),
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'Kategory tidak boleh kosong';
-                          } else if (value.length < 3) {
-                            return "Kategory terlalu pendek";
+                            return 'Nama telepon tidak boleh kosong';
                           }
                           return null;
                         },
@@ -156,7 +144,7 @@ class _FormProdukState extends State<FormProduk> {
                       activeColor: Colors.deepPurpleAccent,
                       onChanged: (value) {
                         setState(() {
-                          nilaiCheckBox = value;
+                          nilaiCheckBox = value!;
                         });
                       },
                     ),
@@ -164,35 +152,34 @@ class _FormProdukState extends State<FormProduk> {
                       padding: new EdgeInsets.only(top: 20),
                     ),
                     new RadioListTile(
-                      value: "Ya",
-                      title: new Text("Ya"),
-                      groupValue: _mau,
+                      value: "Laki-Laki",
+                      title: new Text("laki-laki"),
+                      groupValue: _jk,
                       onChanged: (value) {
                         _pilihJk(value);
                       },
                       activeColor: Colors.blue,
-                      subtitle: new Text("pilih ini jika anda beli"),
+                      subtitle: new Text("pilih ini jika anda laki-laki"),
                     ),
                     new RadioListTile(
-                      value: "Tidak",
-                      title: new Text("Tidak"),
-                      groupValue: _mau,
+                      value: "Perempuan",
+                      title: new Text("Perempuan"),
+                      groupValue: _jk,
                       onChanged: (value) {
                         _pilihJk(value);
                       },
                       activeColor: Colors.blue,
-                      subtitle: new Text("Pilih ini jika anda tidak beli"),
+                      subtitle: new Text("Pilih ini jika anda perempuan"),
                     ),
                     new Padding(
                       padding: EdgeInsets.only(top: 20),
                     ),
                     RaisedButton(
-                      child: Text("Tampilkan",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          )),
-                      color: Colors.red,
+                      child: Text(
+                        "Submit",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      color: Colors.blue,
                       onPressed: () {
                         _submitData();
                       },
