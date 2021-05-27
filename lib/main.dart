@@ -119,7 +119,7 @@ class _FormProdukState extends State<FormProduk> {
                           border: OutlineInputBorder(borderRadius: new BorderRadius.circular(5.0)),
                         ),
                         validator: (value) {
-                          if (value!.isEmpty) {
+                          if (value.isEmpty) {
                             return 'Harga tidak boleh kosong';
                           } else if (value.length < 3) {
                             return "Harga terlalu pendek";
