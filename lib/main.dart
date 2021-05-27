@@ -80,7 +80,7 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
                       TextField(
                         controller: controllerNama,
                         decoration: InputDecoration(labelText: "Nama lengkap"),
-                        validator: (value) {
+                        validator: (String value) {
                           if (value.isEmpty) {
                             return "Nama harus diisi";
                           }
@@ -90,7 +90,7 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
                       TextField(
                         controller: controllerPekerjaan,
                         decoration: InputDecoration(labelText: "Pekerjaan Anda Dahulu"),
-                        validator: (value) {
+                        validator: (String value) {
                           if (value.isEmpty) {
                             return "Pekerjaan harus diisi";
                           }
@@ -100,7 +100,7 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
                       TextField(
                         controller: controllerPengalaman,
                         decoration: InputDecoration(labelText: "Pengalaman Anda"),
-                        validator: (value) {
+                        validator: (String value) {
                           if (value.isEmpty) {
                             return "Pengalaman Harus Diisi";
                           }
