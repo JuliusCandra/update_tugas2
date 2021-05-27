@@ -47,7 +47,7 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
                     new Text("Nama: " + controllerNama.text),
                     new Text("Pekerjaan Terdahulu: Rp " + controllerPekerjaan.text),
                     new Text("Pengalaman: " + controllerPengalaman.text),
-                    new Text("Pilihan Anda: " + _mau),
+                    new Text("Jenis Kelamin: " + _jk),
                   ],
                 ),
               ),
