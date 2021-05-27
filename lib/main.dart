@@ -34,7 +34,7 @@ class _FormProdukState extends State<FormProduk> {
   TextEditingController controllerKategoryBarang = new TextEditingController();
 
   void _submitData() {
-    final isValid = _formKey.currentState!.validate();
+    final isValid = _formKey.currentState.validate();
     if (!isValid) {
       return;
     }
@@ -98,7 +98,7 @@ class _FormProdukState extends State<FormProduk> {
                           border: OutlineInputBorder(borderRadius: new BorderRadius.circular(5.0)),
                         ),
                         validator: (value) {
-                          if (value!.isEmpty) {
+                          if (value.isEmpty) {
                             return 'Nama tidak boleh kosong';
                           } else if (value.length < 2) {
                             return "Nama terlalu pendek";
@@ -140,7 +140,7 @@ class _FormProdukState extends State<FormProduk> {
                           border: OutlineInputBorder(borderRadius: new BorderRadius.circular(5.0)),
                         ),
                         validator: (value) {
-                          if (value!.isEmpty) {
+                          if (value.isEmpty) {
                             return 'Kategory tidak boleh kosong';
                           } else if (value.length < 3) {
                             return "Kategory terlalu pendek";
@@ -156,7 +156,7 @@ class _FormProdukState extends State<FormProduk> {
                       activeColor: Colors.deepPurpleAccent,
                       onChanged: (value) {
                         setState(() {
-                          nilaiCheckBox = value!;
+                          nilaiCheckBox = value;
                         });
                       },
                     ),
