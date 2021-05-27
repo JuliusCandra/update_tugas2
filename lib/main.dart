@@ -44,9 +44,9 @@ class _FormulirKeahlianState extends State<FormulirKeahlian> {
                 height: 200,
                 child: new Column(
                   children: [
-                    new Text("Nama: " + controllerNamaProduk.text),
-                    new Text("Pekerjaan Terdahulu: Rp " + controllerHargaProduk.text),
-                    new Text("Pengalaman: " + controllerKategoryBarang.text),
+                    new Text("Nama: " + controllerNama.text),
+                    new Text("Pekerjaan Terdahulu: Rp " + controllerPekerjaan.text),
+                    new Text("Pengalaman: " + controllerPengalaman.text),
                     new Text("Pilihan Anda: " + _mau),
                   ],
                 ),
